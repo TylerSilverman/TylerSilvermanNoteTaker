@@ -1,26 +1,26 @@
-//start with dependencies 
+//make sure to have npm install before running the function also make sure no errors are found. 
 
+//start with dependencies express is the app
+const express = require('express');
 
+//have const value for  Express -- Express is the app and is the main function that is used in this server.js tab. 
 
-
-//have a variable or const value for  Express
-
-
-
+const app = express();
 
 //have something for the PORT to listen for incoming request 
-var PORT = 8080;
-
-const PORT = 
-
-
+const PORT = process.env.PORT || 3000;
 
 //sets up for the Express app to handle data parsing
+// app.use(express.urlencoded({extended:true}));
+// app.use(express.json());
+// app.use(express.static("public"))
+// require("apiLinks")(app);
+// require("htmlJsLinks")(app);
 
 
 
 
 //starts the server to begin to listen to the PORT  and then will console log 
 app.listen(PORT, function () {
-    console.log("serving is trying to listen on: http://localhost" + PORT);
+    console.log("serving is listening on: http://localhost" + PORT);
 })
