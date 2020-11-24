@@ -1,4 +1,5 @@
 //make sure to have npm install before running the function also make sure no errors are found. 
+// When the frontend JS sends a POST request to your Express backend to create a note,
 
 //start with dependencies express is the app
 const express = require('express');
@@ -22,5 +23,5 @@ const PORT = process.env.PORT || 3000;
 
 //starts the server to begin to listen to the PORT  and then will console log 
 app.listen(PORT, function () {
-    console.log("serving is listening on: http://localhost" + PORT);
+    console.log("line 26 server is listening on: http://localhost" + PORT);
 })
