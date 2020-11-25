@@ -7,13 +7,27 @@ const express = require('express');
 //have const value for  Express -- Express is the app and is the main function that is used in this server.js tab. 
 
 const app = express();
+var path = require("path");
 
 //have something for the PORT to listen for incoming request 
 const PORT = process.env.PORT || 3000;
 
 //sets up for the Express app to handle data parsing
-app.use(express.urlencoded({extended:true}));
-app.use(express.json());
+app.get("/", function(req, res){
+
+    // HTML route
+   res.sendFile(path.join(__dirname, "public/index.html"))
+})
+
+app.get("/notes", function(req,res){
+
+    // HTML route
+    res.sendFile(path.join(__dirname, "public/notes.html"))
+})
+
+
+// API ROUTES interact with database: 
+app.get("/api/notes")
 // app.use(express.static("public"))
 // require("apiLinks")(app);
 // require("htmlJsLinks")(app);
@@ -21,10 +35,10 @@ app.use(express.json());
 
 //the route files- gives the server a "map" of how to respond when users visits or request data from various URLs
 
-require("./routes/apiRoute")(app);
-require("./routes/htmlRoute")(app);
+// require("./routes/apiRoute")(app);
+// require("./routes/htmlRoute")(app);
 
 //starts the server to begin to listen to the PORT  and then will console log 
 app.listen(PORT, function () {
-    console.log("line 26 server is listening on: http://localhost" + PORT);
+    console.log("server is listening on: http://localhost:" + PORT);
 })
