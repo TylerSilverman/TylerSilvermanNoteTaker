@@ -8,8 +8,8 @@ var path = require("path");
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
 app.use(express.json()); 
-var addNotes = require("./db/db.json");
-console.log(addNotes); // getting the db file to make the changes in the notes
+var dataBase = require("./db/db.json");// getting the db file to make the changes in the notes
+console.log(dataBase); //console log the db.json file
 
 
 app.use(express.static("public")); //using express.static and app.use to pull all the files from the public folder to use mostly from the css styling. 
@@ -33,7 +33,7 @@ app.get("/notes", function(req,res){
 }); // ROUTES interact with public notes html database:
 
 app.get("/api/notes", function(req, res){
-    return res.json();
+    return res.json(); // this parses the information the the left side and appends the notes. 
 }); // API ROUTES interact with notes api database:
 
 
