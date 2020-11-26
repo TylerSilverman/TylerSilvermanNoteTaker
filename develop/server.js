@@ -11,7 +11,6 @@ var path = require("path");
 
 //have something for the PORT to listen for incoming request 
 const PORT = process.env.PORT || 3000;
-
 //sets up for the Express app to handle data parsing
 app.get("/", function(req, res){
 
@@ -25,9 +24,8 @@ app.get("/notes", function(req,res){
     res.sendFile(path.join(__dirname, "public/notes.html"))
 })
 
-
 // API ROUTES interact with database: 
-app.get("/api/notes")
+// app.get("/api/notes")
 // app.use(express.static("public"))
 // require("apiLinks")(app);
 // require("htmlJsLinks")(app);
