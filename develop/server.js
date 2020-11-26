@@ -3,16 +3,20 @@
 
 //start with dependencies express is the app
 const express = require('express');
-const app = express();
+const app = express(); // app is express 
 var path = require("path"); // 
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
+const fs = require("fs");
+app.use(express.json()); 
 
 
+app.use(express.static("public")); //using express.static and app.use to pull all the files from the public folder to use mostly from the css styling. 
 
+app.use(express.urlencoded({extended: true})); //using the app to express acess to the body requirements (req) function 
 
-
-
-
+app.get("assets/js/index.js"), function (req, res){
+    res.sendFile(path.join(__dirname, "public/assets/js/index.js"))
+}; // express reaching out to the index.js to send a file after the response 
 
 //sets up for the Express app to handle data parsing
 
@@ -29,9 +33,6 @@ app.get("/notes", function(req,res){
 app.get("/api/notes", function(req, res){
     return res.json();
 }); // API ROUTES interact with notes api database:
-
-app.use(express.static("public")); //using express.static and app.use to pull all the files from the public folder to use for the css styling. 
-
 
 
 
