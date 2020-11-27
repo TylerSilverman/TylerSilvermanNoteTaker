@@ -1,4 +1,8 @@
-//make sure to have npm install before running the function also make sure no errors are found. 
+//MAKE SURE TO BE IN THE TERMINAL /develop AND THEN TYPE IN node server.js AFTER WILL PROMPT TO MY LOCAL HOST
+//MAKE SURE TO HAVE npm install BEFORE RUNNING THE FUNCTION
+//YOU CAN CHECK FOR ERRORS BY TYPING IN THE TERMINAL npm run test TO MAKE NO ERRORS
+//IN THE FOLDER, SHOULD HAVE DEVELOP, ./db/db/json, PUBLIC, ASSETS WITH (2) HTML, SERVER.JS, AND ALSO NODE_MODULES 
+//TO POST TO HERUKU AFTER COMPLETING CHANGES, git push heruku main THAT WILL PUSH IT 
 // When the frontend JS sends a POST request to your Express backend to create a note,
 
 //start with dependencies express is the app
