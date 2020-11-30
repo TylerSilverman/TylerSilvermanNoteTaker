@@ -41,6 +41,12 @@ app.get("/api/notes", function(req, res){
 }); // API ROUTES interact with notes api database:
 
 
+//creating a response to the index.html 
+// app.get("*", function (req, res){
+//     res.sendFile(path.join(__dirname, "./public/index.html"));
+// });
+
+
 //starts the server to begin to listen to the PORT from the local host  and then will console log 
 app.listen(PORT, function () {
     console.log("server is listening on: http://localhost:" + PORT);

@@ -9,15 +9,17 @@ let activeNote = {};
 
 // A function for getting all notes from the db
 const getNotes = () => {
+  console.log("PEN getNotes clicked");
   return $.ajax({
     url: "/api/notes",
     method: "GET",
   });
 };
 
-// A function for saving a note to the db
+// A function for saving a note to the db- 
+//this function is what activates button click. 
 const saveNote = (note) => {
-  // console.log("save button clicked");
+  console.log("save button clicked");
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -27,6 +29,7 @@ const saveNote = (note) => {
 
 // A function for deleting a note from the db
 const deleteNote = (id) => {
+  console.log("DELETE button clicked");
   return $.ajax({
     url: "api/notes/" + id,
     method: "DELETE",
@@ -52,6 +55,7 @@ const renderActiveNote = () => {
 
 // Get the note data from the inputs, save it to the db and update the view
 const handleNoteSave = function () {
+  console.log("handleNoteSaved function")
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
@@ -148,5 +152,5 @@ $noteList.on("click", ".delete-note", handleNoteDelete);
 $noteTitle.on("keyup", handleRenderSaveBtn);
 $noteText.on("keyup", handleRenderSaveBtn);
 
-// Gets and renders the initial list of notes
+// Gets and renders the initial list of notes from the const above. 
 getAndRenderNotes();
