@@ -39,8 +39,8 @@ app.get("/notes", function (req,res){
     res.sendFile(path.join(__dirname, "public/notes.html"))
 }); // ROUTES interact with public notes html database:
 
-app.get("/", function(req, res) {
-    res.json(path.join(__dirname, "public/index.html"));
+app.get("*", function(req, res) {
+    res.json(path.join(__dirname + "public/index.html"));
   });
 
   //getting the router to get the notes
@@ -91,7 +91,7 @@ app.delete('/api/notes/:id', function(req, res){
             return res.json(true);
         };
     });
-    })
+});
 
 
 
