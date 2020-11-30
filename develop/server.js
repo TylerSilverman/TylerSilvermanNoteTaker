@@ -12,7 +12,11 @@ var path = require("path");
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
 var dataBase = require("./db/db.json");// getting the db file to make the changes in the notes
+const router = require('express').Router();
 console.log(dataBase); //console log whats in the db.json file which is located in the db folder then db.json
+let addMore = [];
+// //
+// const {v4 : uuidv4} = require('uuid')
 
 //the app.use is setting up the function for express to handle the data parsing. 
 app.use(express.json()); //function to call the inforamtion to the body req. 
@@ -46,6 +50,23 @@ app.get("/api/notes", function(req, res){
 //     res.sendFile(path.join(__dirname, "./public/index.html"));
 // });
 
+//getting the router to get the notes
+router.get("/notes" , (req, res) => {
+    fs.readFile("../db/db/json", (err, data) =>{
+        if (err){
+            console.log(err)
+        }
+        else {
+            addMore = JSON.parse(data)
+            res.json(addMore)
+        };
+    });
+});
+
+router.post("/notes", (req, res) =>{
+    
+})
+
 
 //starts the server to begin to listen to the PORT from the local host  and then will console log 
 app.listen(PORT, function () {
@@ -57,15 +78,12 @@ app.listen(PORT, function () {
 
 
 
-
 //need to create a function to have another addNote appear after i is created
 
 
 
 //creating a function for the post method to appear on the screen after a note is written and saved. an app post method lets you saved notes that you create and also post the notes on the side. 
 app.post("/api/notes", function(req, res){
-
     //function to write an additional Note
-
 });
 
