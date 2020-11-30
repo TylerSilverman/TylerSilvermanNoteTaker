@@ -1,17 +1,10 @@
-//MAKE SURE TO BE IN THE TERMINAL /develop AND THEN TYPE IN node server.js AFTER WILL PROMPT TO MY LOCAL HOST
-//MAKE SURE TO HAVE npm install BEFORE RUNNING THE FUNCTION
-//YOU CAN CHECK FOR ERRORS BY TYPING IN THE TERMINAL npm run test TO MAKE NO ERRORS
-//IN THE FOLDER, SHOULD HAVE DEVELOP, ./db/db/json, PUBLIC, ASSETS WITH (2) HTML, SERVER.JS, AND ALSO NODE_MODULES 
-//TO POST TO HERUKU AFTER COMPLETING CHANGES, git push heruku main THAT WILL PUSH IT 
-// When the frontend JS sends a POST request to your Express backend to create a note,
-
 //start with dependencies express is the app
 const express = require('express');
 const app = express(); // app is express 
 const path = require("path");  
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
-let db = require("../develop/db/db.json");// getting the db file to make the changes in the notes
+const db = require("./db/db.json");// getting the db file to make the changes in the notes("../develop/db/db.json")
 console.log(db); //console log whats in the db.json file which is located in the db folder then db.json
 const router = require('express').Router();
 console.log(router);
@@ -81,7 +74,7 @@ app.post("/api/notes", function(req, res){
 app.delete('/api/notes/:id', function(req, res){
     const id = req.params.id;
     fs.readFile(db, "utf8", (error, data)=>{
-        if(error){
+        if(data){
             console.log(error);
         }else{
             addMore = JSON.parse(data);
@@ -93,18 +86,29 @@ app.delete('/api/notes/:id', function(req, res){
     });
 });
 
+// app.delete("/api/notes/:id", function (req, res){
+//     let id = parseInt(req.params.id);
+//     let removeNotes = db.filter(items => items.id !=id);
+
+//     removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
+
+//     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
+
+//     res.json({
+//         isError: false,
+//         message: "note is deleted",
+//         port: PORT,
+//         status: 200,
+//         success: true
+//     });
+// });
+
 
 
 //starts the server to begin to listen to the PORT from the local host  and then will console log 
 app.listen(PORT, function () {
     console.log("server is listening on: http://localhost:" + PORT);
 }); //starts the server to begin to listen to the PORT  and then will console log 
-
-
-
-
-
-
 
 //------------EXTRA NOTES ------// 
 
