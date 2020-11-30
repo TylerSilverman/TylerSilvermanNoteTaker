@@ -9,14 +9,7 @@
 const express = require('express');
 const app = express(); // app is express 
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
-const fs = require("fs");
-var dataBase = require("./db/db.json");// getting the db file to make the changes in the notes
 const router = require('express').Router();
-console.log(dataBase); //console log whats in the db.json file which is located in the db folder then db.json
-let addMore = [];
-// //
-const {v4 : uuidv4} = require('uuid')
-
 //the app.use is setting up the function for express to handle the data parsing. 
 app.use(express.json()); //function to call the inforamtion to the body req. 
 
