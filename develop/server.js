@@ -49,20 +49,6 @@ app.get("/api/notes", function (req, res) {
     return res.json(JSON.parse(fs.readFileSync("./db/db.json")));
 });
 
-// let dbNotes  = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
-//     if (error){
-//         throw error;
-//     }
-// }));
-
-// let addMoreNotes = function (note) {
-//     fs.writeFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
-//         if (error){
-//             throw error;
-//         };
-//     });
-// };
-
 //APP.POST FUNCTION
 
 //creating a function for the post method to appear on the screen after a note is written and saved. an app post method lets you saved notes that you create and also post the notes on the side. 
@@ -75,6 +61,7 @@ app.post("/api/notes", function(req, res){
 
     fs.writeFileSync ("./db/db.json", JSON.stringify(db));
 });
+
 //     res.json({
 //         isError: false,
 //         message: "Note saved",
@@ -93,6 +80,27 @@ app.post("/api/notes", function(req, res){
 
 //DELETE FUNCTION
 
+app.delete("/api/notes/:id", function (req, res){
+    let id = parseInt(req.params.id);
+    let removeNotes = db.filter(items => items.id !=id);
+
+    removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
+
+    fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
+
+});
+
+//     res.json({
+//         isError: false,
+//         message: "note is deleted",
+//         port: PORT,
+//         status: 200,
+//         success: true
+//     });
+// });
+
+//ANOTHER POSSIBLE DELETE FUNCTION 
+
 // app.delete('/api/notes/:id', function(req, res){
 //     const id = req.params.id;
 //     fs.readFile(db, "utf8", (error, data)=>{
@@ -105,23 +113,6 @@ app.post("/api/notes", function(req, res){
 //             fs.writeFile(dataBase, newNotesArrayObj, err => err ? console.log(error) : console.log("update the file"));
 //             return res.json(true);
 //         };
-//     });
-// });
-
-// app.delete("/api/notes/:id", function (req, res){
-//     let id = parseInt(req.params.id);
-//     let removeNotes = db.filter(items => items.id !=id);
-
-//     removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
-
-//     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
-
-//     res.json({
-//         isError: false,
-//         message: "note is deleted",
-//         port: PORT,
-//         status: 200,
-//         success: true
 //     });
 // });
 
@@ -140,3 +131,17 @@ app.post("/api/notes", function(req, res){
 // if ( fs.existsSync( file ) ) {
 //     file = fs.readFileSync( file );
 // }
+
+// let dbNotes  = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
+//     if (error){
+//         throw error;
+//     }
+// }));
+
+// let addMoreNotes = function (note) {
+//     fs.writeFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
+//         if (error){
+//             throw error;
+//         };
+//     });
+// };
