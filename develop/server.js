@@ -68,12 +68,28 @@ app.get("/api/notes", function (req, res) {
 //creating a function for the post method to appear on the screen after a note is written and saved. an app post method lets you saved notes that you create and also post the notes on the side. 
 app.post("/api/notes", function(req, res){
     let note = req.body;
-    let id = db.length;
-    note.id = id;
+    console.log(note); // console log the notes taken from the site.
     db.push(note);
-    // addMoreNotes(db);
-    
+    let id = db.length; //setting up the ID for the property
+    note.id = db.indexOf(note);
+
+    fs.writeFileSync ("./db/db.json", JSON.stringify(db));
 });
+//     res.json({
+//         isError: false,
+//         message: "Note saved",
+//         port: PORT,
+//         status: 800,
+//         success: true
+//     });
+// });
+
+// fs.readFile(__dirname + "/notes.html", function (err, data){
+//     if (err) throw err;
+
+//     res.writeHead(200, {"Content-Type": "text/html"});
+//     res.end(data);
+// });
 
 //DELETE FUNCTION
 
