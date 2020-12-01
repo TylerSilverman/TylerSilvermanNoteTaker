@@ -45,23 +45,23 @@ app.get("*", function(req, res) {
   //getting the router to get the notes
 //   / API ROUTES interact with notes api database:
 // this parses the information the the left side and appends the notes. // if you add dataBase in the () then it will project on the screen under the notes saved. //
-app.get("/api/notes" , (req, res) => {
-    return res.json(db);
+app.get("/api/notes", function (req, res) {
+    return res.json(JSON.parse(fs.readFileSync("./db/db.json")));
 });
 
-let dbNotes  = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
-    if (error){
-        throw error;
-    }
-}));
+// let dbNotes  = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
+//     if (error){
+//         throw error;
+//     }
+// }));
 
-let addMoreNotes = function (note) {
-    fs.writeFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
-        if (error){
-            throw error;
-        };
-    });
-};
+// let addMoreNotes = function (note) {
+//     fs.writeFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
+//         if (error){
+//             throw error;
+//         };
+//     });
+// };
 
 //APP.POST FUNCTION
 
@@ -71,26 +71,26 @@ app.post("/api/notes", function(req, res){
     let id = db.length;
     note.id = id;
     db.push(note);
-    addMoreNotes(db);
+    // addMoreNotes(db);
     
 });
 
 //DELETE FUNCTION
 
-app.delete('/api/notes/:id', function(req, res){
-    const id = req.params.id;
-    fs.readFile(db, "utf8", (error, data)=>{
-        if(data){
-            console.log(error);
-        }else{
-            addMore = JSON.parse(data);
-            const newNotesArray = addMore.filter(notes =>notes.id !==id);
-            const newNotesArrayObj = JSON.stringify(newNotesArray);
-            fs.writeFile(dataBase, newNotesArrayObj, err => err ? console.log(error) : console.log("update the file"));
-            return res.json(true);
-        };
-    });
-});
+// app.delete('/api/notes/:id', function(req, res){
+//     const id = req.params.id;
+//     fs.readFile(db, "utf8", (error, data)=>{
+//         if(data){
+//             console.log(error);
+//         }else{
+//             addMore = JSON.parse(data);
+//             const newNotesArray = addMore.filter(notes =>notes.id !==id);
+//             const newNotesArrayObj = JSON.stringify(newNotesArray);
+//             fs.writeFile(dataBase, newNotesArrayObj, err => err ? console.log(error) : console.log("update the file"));
+//             return res.json(true);
+//         };
+//     });
+// });
 
 // app.delete("/api/notes/:id", function (req, res){
 //     let id = parseInt(req.params.id);
