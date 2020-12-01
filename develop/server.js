@@ -6,8 +6,8 @@ const PORT = process.env.PORT || 3000; //something for the PORT to listen incomi
 const fs = require("fs");
 const db = require("./db/db.json");// getting the db file to make the changes in the notes("../develop/db/db.json")
 console.log(db); //console log whats in the db.json file which is located in the db folder then db.json
-const router = require('express').Router();
-console.log(router);
+// const router = require('express').Router();
+// console.log(router);
 let addMore = [];
 // //
 const {v4 : uuidv4} = require('uuid')
@@ -17,15 +17,21 @@ const {v4 : uuidv4} = require('uuid')
 //the app.use is setting up the function for express to handle the data parsing. 
 app.use(express.json()); //function to call the inforamtion to the body req. 
 
-app.use(express.static("public")); //using express.static and app.use to pull all the files from the public folder to use mostly from the css styling. 
+app.use(express.static(path.join(__dirname, "public"))); //using express.static and app.use to pull all the files from the public folder to use mostly from the css styling. 
 
 app.use(express.urlencoded({extended: true})); //using the app to express acess to the body requirements (req) function 
 
+//APP CALLING THE LISTENING FUNCTION TO THE LOCAL HOST
+app.listen(PORT, function () {
+    console.log("Click To Check Out: http://localhost:" + PORT);
+}); //starts the server to begin to listen to the PORT  and then will console log 
+
+
 //ALL APP.GET 
 
-app.get("assets/js/index.js"), function (req, res){
-    res.sendFile(path.join(__dirname, "public/assets/js/index.js"))
-}; // express reaching out to the index.js to send a file after the response 
+app.get("/", function (req, res){
+    res.sendFile(path.join(__dirname, "public/assets/js/index.js"));
+}); // express reaching out to the index.js to send a file after the response 
 
 //app.get for the notes.html from the public folder
 app.get("/notes", function (req,res){
@@ -102,13 +108,6 @@ app.delete('/api/notes/:id', function(req, res){
 //         success: true
 //     });
 // });
-
-
-
-//starts the server to begin to listen to the PORT from the local host  and then will console log 
-app.listen(PORT, function () {
-    console.log("server is listening on: http://localhost:" + PORT);
-}); //starts the server to begin to listen to the PORT  and then will console log 
 
 //------------EXTRA NOTES ------// 
 
