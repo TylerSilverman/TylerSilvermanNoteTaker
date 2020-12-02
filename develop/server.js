@@ -6,9 +6,7 @@ const PORT = process.env.PORT || 3000; //something for the PORT to listen incomi
 const fs = require("fs");
 const db = require("./db/db.json");// getting the db file to make the changes in the notes("../develop/db/db.json")
 console.log(db); //console log whats in the db.json file which is located in the db folder then db.json
-// const router = require('express').Router();
-// console.log(router);
-let addMore = [];
+let note = [];
 // //
 const {v4 : uuidv4} = require('uuid')
 
@@ -52,96 +50,37 @@ app.get("/api/notes", function (req, res) {
 //APP.POST FUNCTION
 
 //creating a function for the post method to appear on the screen after a note is written and saved. an app post method lets you saved notes that you create and also post the notes on the side. 
-app.post("/api/notes", function(req, res){
+app.post("/api/notes", (req, res) => {
     let note = req.body;
     console.log(note); // console log the notes taken from the site.
-    db.push(note);
+    db.push(req.body);
     let id = db.length; //setting up the ID for the property
     note.id = db.indexOf(note);
 
     fs.writeFileSync ("./db/db.json", JSON.stringify(db));
+
 });
-
-//     res.json({
-//         isError: false,
-//         message: "Note saved",
-//         port: PORT,
-//         status: 800,
-//         success: true
-//     });
+// app.post("/api/notes", function(req, res){
+//     addNote(req.body)
+//     .then((note) => res.json(note))
+//     .catch((err) => res.status(500).json(err));
 // });
 
-// fs.readFile(__dirname + "/notes.html", function (err, data){
-//     if (err) throw err;
 
-//     res.writeHead(200, {"Content-Type": "text/html"});
-//     res.end(data);
-// });
 
 //DELETE FUNCTION
+
+// app.delete("/api/notes/:id", function (req, res) {
+//     removeNote(req.params.id)
+//     .then((note) => res.json(note))
+//     .catch((err) => res.status(500).json(err));
+// });
+
 
 app.delete("/api/notes/:id", function (req, res){
     let id = parseInt(req.params.id);
     let removeNotes = db.filter(items => items.id !=id);
-
     removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
-
     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
 
 });
-
-//     res.json({
-//         isError: false,
-//         message: "note is deleted",
-//         port: PORT,
-//         status: 200,
-//         success: true
-//     });
-// });
-
-//ANOTHER POSSIBLE DELETE FUNCTION 
-
-// app.delete('/api/notes/:id', function(req, res){
-//     const id = req.params.id;
-//     fs.readFile(db, "utf8", (error, data)=>{
-//         if(data){
-//             console.log(error);
-//         }else{
-//             addMore = JSON.parse(data);
-//             const newNotesArray = addMore.filter(notes =>notes.id !==id);
-//             const newNotesArrayObj = JSON.stringify(newNotesArray);
-//             fs.writeFile(dataBase, newNotesArrayObj, err => err ? console.log(error) : console.log("update the file"));
-//             return res.json(true);
-//         };
-//     });
-// });
-
-//------------EXTRA NOTES ------// 
-
-// //app.get for the index.html from the public folder
-// app.get("/", function (req, res){
-//    res.sendFile(path.join(__dirname, "public/index.html"))
-// }); //ROUTES interact with public index html database:
-
-
-//creating a response to the index.html 
-// app.get("*", function (req, res){
-//     res.sendFile(path.join(__dirname, "./public/index.html"));
-// });
-// if ( fs.existsSync( file ) ) {
-//     file = fs.readFileSync( file );
-// }
-
-// let dbNotes  = JSON.parse(fs.readFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
-//     if (error){
-//         throw error;
-//     }
-// }));
-
-// let addMoreNotes = function (note) {
-//     fs.writeFileSync(path.join(__dirname, "/db/db.json"), (error, data) =>{
-//         if (error){
-//             throw error;
-//         };
-//     });
-// };
