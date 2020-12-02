@@ -36,10 +36,6 @@ app.get("/notes", function (req,res){
     res.sendFile(path.join(__dirname, "public/notes.html"))
 }); // ROUTES interact with public notes html database:
 
-app.get("*", function(req, res) {
-    res.json(path.join(__dirname + "public/index.html"));
-  });
-
   //getting the router to get the notes
 //   / API ROUTES interact with notes api database:
 // this parses the information the the left side and appends the notes. // if you add dataBase in the () then it will project on the screen under the notes saved. //
@@ -84,3 +80,7 @@ app.delete("/api/notes/:id", function (req, res){
     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
 
 });
+
+app.get("*", function(req, res) {
+    res.json(path.join(__dirname + "public/index.html"));
+  });
