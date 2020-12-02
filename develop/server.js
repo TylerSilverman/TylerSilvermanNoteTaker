@@ -20,10 +20,10 @@ app.use(express.static(path.join(__dirname, "public"))); //using express.static 
 app.use(express.urlencoded({extended: true})); //using the app to express acess to the body requirements (req) function 
 
 //APP CALLING THE LISTENING FUNCTION TO THE LOCAL HOST
+
 app.listen(PORT, function () {
     console.log("Click To Check Out: http://localhost:" + PORT);
 }); //starts the server to begin to listen to the PORT  and then will console log 
-
 
 //ALL APP.GET 
 
@@ -60,10 +60,9 @@ app.post("/api/notes", (req, res) => {
 app.delete("/api/notes/:id", function (req, res){
     let id = parseInt(req.params.id);
     let removeNotes = db.filter(items => items.id !=id);
-    removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
+    removeNotes.forEach(element => element.id = removeNotes.indexOf(uuidv4));
     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
     res.json(true);
-
 });
 
 app.get("*", function(req, res) {
