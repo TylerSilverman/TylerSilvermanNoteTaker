@@ -4,7 +4,7 @@ const app = express(); // app is express
 const path = require("path");  
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
-const db = require("../develop/db/db.json");// getting the db file to make the changes in the notes
+const db = require("./db/db.json");// getting the db file to make the changes in the notes
 console.log(db); //console log whats in the db.json file
 let note = [];
 //unique ID for the notes
@@ -58,9 +58,10 @@ app.post("/api/notes", (req, res) => {
 
 app.delete("/api/notes/:id", function (req, res){
     let id = parseInt(req.params.id);
-    let removeNotes = db.filter(items => items.id !=id);
-    removeNotes.forEach(element => element.id = removeNotes.indexOf(uuidv4));
-    fs.writeFileSync("../develop/db/db.json", JSON.stringify(removeNotes));
+    let removeNotes = db.filter(items => items.id !=-id);
+    removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
+    fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
+    
     res.json(true);
 });
 
