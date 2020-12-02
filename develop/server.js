@@ -54,33 +54,19 @@ app.post("/api/notes", (req, res) => {
     note.id = db.indexOf(note);
 
     fs.writeFileSync ("./db/db.json", JSON.stringify(db));
+    res.json(note);
 
 });
-// app.post("/api/notes", function(req, res){
-//     addNote(req.body)
-//     .then((note) => res.json(note))
-//     .catch((err) => res.status(500).json(err));
-// });
-
-
-
-//DELETE FUNCTION
-
-// app.delete("/api/notes/:id", function (req, res) {
-//     removeNote(req.params.id)
-//     .then((note) => res.json(note))
-//     .catch((err) => res.status(500).json(err));
-// });
-
 
 app.delete("/api/notes/:id", function (req, res){
     let id = parseInt(req.params.id);
     let removeNotes = db.filter(items => items.id !=id);
     removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
+    res.json(true);
 
 });
 
 app.get("*", function(req, res) {
-    res.json(path.join(__dirname + "public/index.html"));
+    res.sendFile(path.join(__dirname + "/develop/public/index.html"));
   });
