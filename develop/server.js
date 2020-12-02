@@ -4,13 +4,13 @@ const app = express(); // app is express
 const path = require("path");  
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
-const db = require("../develop/db/db.json");// getting the db file to make the changes in the notes("../develop/db/db.json")
-console.log(db); //console log whats in the db.json file which is located in the db folder then db.json
+const db = require("../develop/db/db.json");// getting the db file to make the changes in the notes
+console.log(db); //console log whats in the db.json file
 let note = [];
-// //
+//unique ID for the notes
 const {v4 : uuidv4} = require('uuid')
 
-//ALL APP.USE 
+//ALL APP.USE (3)
 
 //the app.use is setting up the function for express to handle the data parsing. 
 app.use(express.json()); //function to call the inforamtion to the body req. 
@@ -25,7 +25,7 @@ app.listen(PORT, function () {
     console.log("Click To Check Out: http://localhost:" + PORT);
 }); //starts the server to begin to listen to the PORT  and then will console log 
 
-//ALL APP.GET 
+//ALL APP.GET (4)
 
 app.get("/", function (req, res){
     res.sendFile(path.join(__dirname, "public/assets/js/index.js"));
@@ -52,19 +52,18 @@ app.post("/api/notes", (req, res) => {
     //add the uuidv4 in the () to be able to delete the notes without effected the db.json file. 
     note.id = db.indexOf(uuidv4);
 
-    fs.writeFileSync ("./db/db.json", JSON.stringify(db));
+    fs.writeFileSync ("../develop/db/db.json", JSON.stringify(db));
     res.json(note);
-
 });
 
 app.delete("/api/notes/:id", function (req, res){
     let id = parseInt(req.params.id);
     let removeNotes = db.filter(items => items.id !=id);
     removeNotes.forEach(element => element.id = removeNotes.indexOf(uuidv4));
-    fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
+    fs.writeFileSync("../develop/db/db.json", JSON.stringify(removeNotes));
     res.json(true);
 });
 
 app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname + "/develop/public/index.html"));
-  });
+    res.sendFile(path.join(__dirname + "../develop/public/index.html"));
+});
