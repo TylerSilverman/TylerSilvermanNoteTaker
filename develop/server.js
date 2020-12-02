@@ -4,7 +4,7 @@ const app = express(); // app is express
 const path = require("path");  
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
-const db = require("./db/db.json");// getting the db file to make the changes in the notes("../develop/db/db.json")
+const db = require("../develop/db/db.json");// getting the db file to make the changes in the notes("../develop/db/db.json")
 console.log(db); //console log whats in the db.json file which is located in the db folder then db.json
 let note = [];
 // //
@@ -32,12 +32,10 @@ app.get("/", function (req, res){
 }); // express reaching out to the index.js to send a file after the response 
 
 //app.get for the notes.html from the public folder
-app.get("/notes", function (req,res){
+app.get("/notes", function (req, res){
     res.sendFile(path.join(__dirname, "public/notes.html"))
 }); // ROUTES interact with public notes html database:
 
-  //getting the router to get the notes
-//   / API ROUTES interact with notes api database:
 // this parses the information the the left side and appends the notes. // if you add dataBase in the () then it will project on the screen under the notes saved. //
 app.get("/api/notes", function (req, res) {
     return res.json(JSON.parse(fs.readFileSync("./db/db.json")));
@@ -51,7 +49,8 @@ app.post("/api/notes", (req, res) => {
     console.log(note); // console log the notes taken from the site.
     db.push(req.body);
     let id = db.length; //setting up the ID for the property
-    note.id = db.indexOf(note);
+    //add the uuidv4 in the () to be able to delete the notes without effected the db.json file. 
+    note.id = db.indexOf(uuidv4);
 
     fs.writeFileSync ("./db/db.json", JSON.stringify(db));
     res.json(note);
