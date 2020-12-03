@@ -52,7 +52,7 @@ app.post("/api/notes", (req, res) => {
     //add the uuidv4 in the () to be able to delete the notes without effected the db.json file. 
     note.id = db.indexOf(uuidv4);
 
-    fs.writeFileSync ("../develop/db/db.json", JSON.stringify(db));
+    fs.writeFileSync ("./db/db.json", JSON.stringify(db));
     res.json(note);
 });
 
