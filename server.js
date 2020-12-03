@@ -46,11 +46,11 @@ app.get("/api/notes", function (req, res) {
 //creating a function for the post method to appear on the screen after a note is written and saved. an app post method lets you saved notes that you create and also post the notes on the side. 
 app.post("/api/notes", (req, res) => {
     let note = req.body;
-    console.log(note); // console log the notes taken from the site.
     db.push(req.body);
     let id = db.length; //setting up the ID for the property
     //add the uuidv4 in the () to be able to delete the notes without effected the db.json file. 
-    note.id = db.indexOf(uuidv4);
+    note.id = uuidv4();
+    console.log(note); 
 
     fs.writeFileSync ("./db/db.json", JSON.stringify(db));
     res.json(note);
@@ -58,7 +58,7 @@ app.post("/api/notes", (req, res) => {
 
 app.delete("/api/notes/:id", function (req, res){
     let id = parseInt(req.params.id);
-    let removeNotes = db.filter(items => items.id !=-id);
+    let removeNotes = db.filter(items => items.id !=id);
     removeNotes.forEach(element => element.id = removeNotes.indexOf(element));
     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
     
@@ -66,5 +66,5 @@ app.delete("/api/notes/:id", function (req, res){
 });
 
 app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname + "../develop/public/index.html"));
+    res.sendFile(path.join(__dirname + "./public/index.html"));
 });
