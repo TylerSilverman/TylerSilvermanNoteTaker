@@ -5,7 +5,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3000; //something for the PORT to listen incoming request 
 const fs = require("fs");
 const db = require("./db/db.json");// getting the db file to make the changes in the notes
-console.log(db); //console log whats in the db.json file
+// console.log(db); //console log whats in the db.json file
 let note = [];
 //unique ID for the notes
 const {v4 : uuidv4} = require('uuid')
@@ -47,9 +47,9 @@ app.get("/api/notes", function (req, res) {
 app.post("/api/notes", (req, res) => {
     let note = req.body;
     let db = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    console.log(db);
+    // console.log(db);
     note.id = uuidv4();
-    console.log(note); 
+    // console.log(note); 
     db.push(note);
     fs.writeFileSync ("./db/db.json", JSON.stringify(db));
     res.json(note);
@@ -58,7 +58,7 @@ app.post("/api/notes", (req, res) => {
 app.delete("/api/notes/:id", function (req, res){
     let id = (req.params.id);
     let db = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    console.log("deleted item", id);
+    // console.log("deleted item", id);
     let removeNotes = db.filter(items => items.id !=id);
     fs.writeFileSync("./db/db.json", JSON.stringify(removeNotes));
     
